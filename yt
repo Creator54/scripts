@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+f(){
+    read -p "Link: " link;
+    echo "starting download in best possible quality."
+    youtube-dl -t $link;
+}
+
+f #function call
+
+#fish requires passing arguments in quotes
