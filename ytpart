@@ -1,4 +1,6 @@
 #!/bin/bash
+#currently end time+=start time
+#will shift to video timestamp
 
 echo "========================================================"
 read -p "Give link: " link;
