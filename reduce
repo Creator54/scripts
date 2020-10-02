@@ -1,0 +1,25 @@
+#!/bin/bash
+function run(){
+    read -p "Cycle count: " count
+    for x in {1..$count}
+    do
+        read -p "Debug: " debug
+        echo "Try :"$x
+        in="$(ls -a | grep in.mp4)"
+        out="$(ls -a | grep out.mp4)"
+        if [[ -e "$out" ]]
+        then
+            rm $out
+        fi
+        if [ "$debug" = true ] ; then
+            ffmpeg -i $in -c:v libx265 -crf 28 $out
+        else
+            ffmpeg -i $in -c:v libx265 -crf 28 $out &> /dev/null
+        fi
+        in="$(ls -a | grep out.mp4)"
+        out="$(ls -a | grep in.mp4)"
+    done
+    clear
+    echo "info: https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg"
+}
+"$@"
