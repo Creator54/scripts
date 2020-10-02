@@ -1,4 +1,6 @@
 #!/bin/bash
+#Reduce video file size
+#Usage: ./reduce run
 function run(){
     read -p "Cycle count: " count
     for x in {1..$count}
