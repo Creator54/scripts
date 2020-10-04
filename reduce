@@ -4,7 +4,6 @@
 
 option=0
 type=mp4
-in=$(ls -a | grep .$type)
 out=output.$type
 bitrate=0
 
@@ -18,15 +17,18 @@ function run(){
     echo
     options
     read -p "Debug(false): " debug
-    for x in {1..$count}
+    for (( i=1; i<=$count; i++ )) # for i in {1..$count} does not work 
     do
-        echo "Try count:"$x
-        if [[ -e "$out" ]]; then
-            #issues here
-            rm $out
+        echo
+        echo "loop count:"$i
+        if [ "$i" = 1 ]; then
+            if [[ -e "$out" ]]; then
+                rm $out
+            fi
+            in=$(ls -a | grep .$type)
         fi
-        
-        if [ "$option" = 1 ]; then                             #ffmpeg_processing
+
+        if [ "$option" = 1 ]; then                             #default_ffmpeg_processing
             cmd="ffmpeg -i $in $out"
         elif [ "$option" = 2 ]; then                           #general
             cmd="ffmpeg -i $in -c:v libx265 -crf 28 $out"
@@ -60,8 +62,15 @@ function run(){
         else
             $cmd &> /dev/null
         fi
-
-
+        
+        if [[ -e "input.$type" ]]; then
+            rm input.$type
+        fi
+        if [ "$i" != $count ]; then
+            mv $out input.$type
+            in=input.$type
+        fi
+    
     done
     echo "Complete !"
     echo "More info: https://unix.stackexchange.com/questions/28803/how-can-i-reduce-a-videos-size-with-ffmpeg"
