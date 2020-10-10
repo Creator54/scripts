@@ -6,6 +6,12 @@ option=0
 type=mp4
 out=output.$type
 bitrate=0
+thread=0
+#    -threads 0 (optimal);
+#    -threads 1 (single-threaded);
+#    -threads 2 (2 threads for e.g. an Intel Core 2 Duo);
+#    none (the default, also optimal).
+#see: https://superuser.com/questions/155305/how-many-threads-does-ffmpeg-use-by-default
 
 function run(){
     clear
@@ -58,9 +64,9 @@ function run(){
         fi
 
         if [ "$debug" = true ]; then
-            $cmd
+            $cmd -threads $thread
         else
-            $cmd &> /dev/null
+            $cmd -threads $thread &> /dev/null
         fi
         
         if [[ -e "input.$type" ]]; then
