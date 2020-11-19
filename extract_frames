@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 read -p "Give video location: " vid;
 read -p "After how many sec should i save a new pic : " sec;

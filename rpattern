@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 f1(){
     read -p "Give file name: " file;
