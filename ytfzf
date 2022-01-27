@@ -45,7 +45,7 @@ printf "" > "$tmp_video_data_file"
 #player to use for watching the video
 [ -z "$YTFZF_PLAYER" ] && YTFZF_PLAYER="${video_player-mpv}"
 #if YTFZF_PREF is specified, use this player instead
-[ -z "$YTFZF_PLAYER_FORMAT" ] && YTFZF_PLAYER_FORMAT="${video_player_format-mpv --ytdl-format=}"
+[ -z "$YTFZF_PLAYER_FORMAT" ] && YTFZF_PLAYER_FORMAT="${video_player_format-mpv --ytdl-format=bestvideo[height<=?480]+bestaudio/best}"
 
 #> Clearing/Enabling fzf_defaults
 #enable/disable the use of FZF_DEFAULT_OPTS
