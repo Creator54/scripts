@@ -4,7 +4,11 @@ package=$((ls ~/.nix-profile/bin/;ls ~/.config/fish/functions/;ls ~/.config/fish
 
 if [[ $package =~ ".fish" ]] || [[ $package =~ ".sh" ]];then
   package=$(echo $package|sed 's/.fish//; s/.sh//') #remove all .fish/.sh
-  kitty -e fish -c "$package;read -P \n'Press Enter to exit !!' key"
+  if [[ $package == "cdev" ]]; then
+    fish -c "$package"
+  else
+    kitty -e fish -c "$package;read -P \n'Press Enter to exit !!' key"
+  fi
 else
   exec $package
 fi
